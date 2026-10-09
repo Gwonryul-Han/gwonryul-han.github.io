@@ -3,14 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Publications | Gwonryul Han</title>
+  <title>Publications | Gwon Ryul Han</title>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; color: #222; line-height: 1.6; }
     nav { border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 30px; }
     nav a { margin-right: 20px; color: #0066cc; text-decoration: none; font-weight: 600; }
-    .pub-item { margin-bottom: 20px; border-left: 3px solid #0066cc; padding-left: 12px; }
-    .pub-title { font-weight: bold; font-size: 1.1rem; }
+    nav a:hover { text-decoration: underline; }
+
+    /* 논문 카드리스트 스타일 */
+    .pub-card { margin-bottom: 20px; padding: 16px; border-left: 4px solid #0066cc; background: #f9f9f9; border-radius: 0 8px 8px 0; }
+    .pub-title { font-size: 1.1rem; font-weight: bold; color: #111; margin-bottom: 6px; }
+    .pub-authors { color: #444; margin-bottom: 4px; }
+    .pub-venue { font-style: italic; color: #666; font-size: 0.95rem; }
+    .pub-links { margin-top: 10px; }
+    .pub-btn { display: inline-block; font-size: 0.85rem; padding: 4px 10px; background: #e6f0fa; color: #0066cc; text-decoration: none; border-radius: 4px; font-weight: 600; margin-right: 6px; }
+    .pub-btn:hover { background: #0066cc; color: #fff; }
+    .loading { color: #888; font-style: italic; }
   </style>
+
+  <!-- BibTeX 라이브러리 (CDN) -->
+  <script src="https://cdn.jsdelivr.net/gh/orcid/bibtexParseJs@master/bibtexParse.js"></script>
 </head>
 <body>
   <nav>
@@ -21,11 +33,72 @@
   </nav>
 
   <h1>Publications</h1>
+  <p style="color: #666; font-size: 0.95rem; margin-bottom: 25px;">Automated from <code>publications.bib</code></p>
 
-  <div class="pub-item">
-    <div class="pub-title">Paper Title Here</div>
-    <div>Authors: <strong>Gwonryul Han</strong>, Co-author Name</div>
-    <div>Published in <em>Journal / Conference Name</em>, 2026</div>
-  </div>
+  <!-- 논문이 들어갈 영역 -->
+  <div id="publications-list" class="loading">Loading publications...</div>
+
+  <script>
+    async function loadBibTeX() {
+      const container = document.getElementById('publications-list');
+      try {
+        const response = await fetch('publications.bib');
+        if (!response.ok) throw new Error('publications.bib 파일을 찾을 수 없습니다.');
+        const bibText = await response.text();
+        const parsedData = bibtexParse.toJSON(bibText);
+
+        if (!parsedData || parsedData.length === 0) {
+          container.innerHTML = '<p>등록된 논문이 없습니다.</p>';
+          return;
+        }
+
+        // 최신 연도순 정렬
+        parsedData.sort((a, b) => {
+          const yearA = parseInt(a.entryTags.year || a.entryTags.YEAR || '0');
+          const yearB = parseInt(b.entryTags.year || b.entryTags.YEAR || '0');
+          return yearB - yearA;
+        });
+
+        container.innerHTML = '';
+
+        parsedData.forEach(item => {
+          const tags = {};
+          Object.keys(item.entryTags).forEach(k => {
+            tags[k.toLowerCase()] = item.entryTags[k];
+          });
+
+          const title = tags.title ? tags.title.replace(/[\{\}]/g, '') : 'Untitled';
+          let authors = tags.author ? tags.author.replace(/[\{\}]/g, '') : '';
+          
+          // 내 이름 볼드 처리
+          authors = authors
+            .replace(/Han, Gwon Ryul|Gwon Ryul Han|Gwonryul Han|Han, Gwonryul/g, '<strong>Gwon Ryul Han</strong>')
+            .replace(/ and /g, ', ');
+
+          const journal = tags.journal || tags.booktitle || 'Preprint';
+          const year = tags.year || '';
+          const doi = tags.doi ? `https://doi.org/${tags.doi}` : null;
+          const url = tags.url || tags.eprint || doi;
+
+          const card = document.createElement('div');
+          card.className = 'pub-card';
+          card.innerHTML = `
+            <div class="pub-title">${title}</div>
+            <div class="pub-authors">${authors}</div>
+            <div class="pub-venue">${journal}${year ? `, ${year}` : ''}</div>
+            <div class="pub-links">
+              ${url ? `<a href="${url}" target="_blank" class="pub-btn">Paper / Link</a>` : ''}
+              ${doi ? `<a href="${doi}" target="_blank" class="pub-btn">DOI</a>` : ''}
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      } catch (err) {
+        container.innerHTML = `<p style="color: red;">오류: ${err.message}</p>`;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadBibTeX);
+  </script>
 </body>
 </html>
