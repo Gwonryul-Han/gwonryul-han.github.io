@@ -25,3 +25,39 @@ nav a:hover {
   color: #555;
   text-decoration: underline;
 }
+
+/* 프로필 나란히 배치 (Flexbox) */
+.profile-container {
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  gap: 30px;           /* 사진과 글 사이 간격 */
+  margin-bottom: 30px;
+}
+
+.profile-img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;  /* 원형 프로필 이미지 */
+  object-fit: cover;
+  flex-shrink: 0;      /* 화면이 줄어들어도 사진 비율 유지 */
+}
+
+.profile-info h1 {
+  margin: 0 0 8px 0;
+  font-size: 2rem;
+  color: #111;
+}
+
+.profile-info p {
+  margin: 4px 0;
+  color: #444;
+}
+
+/* 모바일 화면 대응 (선택 사항: 모바일에서는 다시 위아래 정렬) */
+@media (max-width: 600px) {
+  .profile-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+}
