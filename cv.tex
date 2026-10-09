@@ -1,6 +1,14 @@
 \documentclass[11pt,a4paper]{article}
 \usepackage[margin=0.8in]{geometry}
 \usepackage{hyperref}
+\usepackage{titlesec}
+
+\usepackage[backend=biber, style=numeric, sorting=ydnt]{biblatex}
+\addbibresource{publications.bib}
+
+% \section 헤더 글씨 크기와 밑줄(\titlerule) 자동 적용
+\titleformat{\section}{\large\bfseries}{}{0pt}{}[\titlerule]
+\titlespacing*{\section}{0pt}{10pt}{6pt} % 간격 조절 (왼쪽, 위, 아래)
 
 \begin{document}
 \begin{center}
@@ -13,20 +21,26 @@
 B.S. in Physics \hfill \textit{March 2024 -- Present}
 
 \section*{Research Interests}
+
 \begin{itemize}
     \item Quantum Information Theory, Quantum Metrology, Quantum State over Spacetime
     \item Mixed State Topological Order, Anyon Theory
 \end{itemize}
 
+\section*{Publications}
+\nocite{*}
+\printbibliography[heading=none]section*{Publication}
+
 \section*{Research Experience}
-\subsection*{Quantum Information Theory Group \hfill \textit{UNIST}}
-Undergraduate Researcher(Advised by Seok Hyung Lie) \hfill \textit{June 2024 -- Present}
+
+\subsection*{Quantum Information Theory Group}
+Undergraduate Researcher(Advised by Seok Hyung Lie) \hfill UNIST \textit{June 2024 -- Present}
 \begin{itemize}
     \item \textbf{Research Topic}: Quantum Metrology, Quantum State over Spacetime 
 \end{itemize}
 
-\subsection*{Topological Matter Theory Group \hfill \textit{KAIST}}
-Undergraduate Researcher(Advised by Gilyoung Cho) \hfill \textit{June 2026 -- Present}
+\subsection*{Topological Matter Theory Group \hfill}
+Undergraduate Researcher(Advised by Gilyoung Cho) \hfill KAIST \textit{June 2026 -- Present}
 \begin{itemize}
     \item \textbf{Research Topic}: Mixed State Topological Order, Anyon Theory (related to Quantum Error Correction Code)
 \end{itemize}
