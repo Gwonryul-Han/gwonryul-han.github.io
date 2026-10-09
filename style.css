@@ -1,0 +1,27 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+  color: #222;
+  line-height: 1.6;
+}
+
+/* 네비게이션 상단 바 검은색 설정 */
+nav {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+}
+
+nav a {
+  margin-right: 20px;
+  color: #111; /* 상단 메뉴 검은색 */
+  text-decoration: none;
+  font-weight: 600;
+}
+
+nav a:hover {
+  color: #555;
+  text-decoration: underline;
+}
