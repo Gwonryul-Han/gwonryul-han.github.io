@@ -1,0 +1,38 @@
+name: Build LaTeX CV to PDF
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'cv.tex'
+      - '.github/workflows/compile-cv.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # LaTeX 컴파일 (xu-cheng/latex-action)
+      - name: Compile LaTeX Document
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: cv.tex
+
+      # 빌드된 cv.pdf를 assets 폴더로 이동
+      - name: Move PDF to assets
+        run: |
+          mkdir -p assets
+          mv cv.pdf assets/cv.pdf
+
+      # 생성된 assets/cv.pdf를 다시 레포지토리에 저장
+      - name: Commit and Push PDF
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "auto: compile cv.tex to assets/cv.pdf [skip ci]"
+          file_pattern: "assets/cv.pdf"
