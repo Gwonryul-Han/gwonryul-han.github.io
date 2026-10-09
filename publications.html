@@ -22,7 +22,7 @@
   <!-- 논문이 들어갈 영역 -->
   <div id="publications-list" class="loading">Loading publications...</div>
 
-  <script>
+<script>
     async function loadBibTeX() {
       const container = document.getElementById('publications-list');
       try {
@@ -45,7 +45,8 @@
 
         container.innerHTML = '';
 
-        parsedData.forEach(item => {
+        // index 인자 추가 (0부터 시작하므로 index + 1 사용)
+        parsedData.forEach((item, index) => {
           const tags = {};
           Object.keys(item.entryTags).forEach(k => {
             tags[k.toLowerCase()] = item.entryTags[k];
@@ -67,7 +68,7 @@
           const card = document.createElement('div');
           card.className = 'pub-card';
           card.innerHTML = `
-            <div class="pub-title">${title}</div>
+            <div class="pub-title">[${parsedData.length - index}] ${title}</div>
             <div class="pub-authors">${authors}</div>
             <div class="pub-venue">${journal}${year ? `, ${year}` : ''}</div>
             <div class="pub-links">
