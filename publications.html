@@ -1,28 +1,45 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Publications | Gwon Ryul Han</title>
+  <meta name="description" content="Gwon Ryul Han — undergraduate physics researcher at UNIST working on quantum information theory.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 
-  <!-- BibTeX 라이브러리 (CDN) -->
+  <!-- BibTeX parser (CDN) -->
   <script src="https://cdn.jsdelivr.net/gh/orcid/bibtexParseJs@master/bibtexParse.js"></script>
 </head>
 <body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="cv.html">CV</a>
-    <a href="publications.html">Publications</a>
-    <a href="contact.html">Contact</a>
-  </nav>
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="brand"><span class="brand-mark">GH</span><span class="brand-name">Gwon Ryul Han</span></a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="cv.html">CV</a>
+        <a href="publications.html" aria-current="page">Publications</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-  <h1>Publications</h1>
+  <main>
+    <div class="container">
+      <div class="page-head">
+        <span class="eyebrow">Research Output</span>
+        <h1>Publications</h1>
+        <p>Papers and preprints, newest first.</p>
+      </div>
 
-  <!-- 논문이 들어갈 영역 -->
-  <div id="publications-list" class="loading">Loading publications...</div>
+      <div id="publications-list" class="loading">Loading publications&hellip;</div>
+    </div>
+  </main>
 
-<script>
+  <script>
     async function loadBibTeX() {
       const container = document.getElementById('publications-list');
       try {
@@ -44,8 +61,8 @@
         });
 
         container.innerHTML = '';
+        container.classList.remove('loading');
 
-        // index 인자 추가 (0부터 시작하므로 index + 1 사용)
         parsedData.forEach((item, index) => {
           const tags = {};
           Object.keys(item.entryTags).forEach(k => {
@@ -54,36 +71,54 @@
 
           const title = tags.title ? tags.title.replace(/[\{\}]/g, '') : 'Untitled';
           let authors = tags.author ? tags.author.replace(/[\{\}]/g, '') : '';
-          
+
           // 내 이름 볼드 처리
           authors = authors
             .replace(/Han, Gwon Ryul|Gwon Ryul Han|Gwonryul Han|Han, Gwonryul/g, '<strong>Gwon Ryul Han</strong>')
             .replace(/ and /g, ', ');
 
-          const journal = tags.journal || tags.booktitle || 'Preprint';
+          const isArxiv = (tags.archiveprefix || '').toLowerCase() === 'arxiv' && tags.eprint;
+          const journal = tags.journal || tags.booktitle ||
+            (isArxiv ? `arXiv:${tags.eprint}${tags.primaryclass ? ` [${tags.primaryclass}]` : ''}` : 'Preprint');
           const year = tags.year || '';
           const doi = tags.doi ? `https://doi.org/${tags.doi}` : null;
-          const url = tags.url || tags.eprint || doi;
+          const url = tags.url || (isArxiv ? `https://arxiv.org/abs/${tags.eprint}` : null) || doi;
+          const pdf = isArxiv ? `https://arxiv.org/pdf/${tags.eprint}` : null;
 
-          const card = document.createElement('div');
+          const card = document.createElement('article');
           card.className = 'pub-card';
           card.innerHTML = `
-            <div class="pub-title">[${parsedData.length - index}] ${title}</div>
-            <div class="pub-authors">${authors}</div>
-            <div class="pub-venue">${journal}${year ? `, ${year}` : ''}</div>
-            <div class="pub-links">
-              ${url ? `<a href="${url}" target="_blank" class="pub-btn">Paper / Link</a>` : ''}
-              ${doi ? `<a href="${doi}" target="_blank" class="pub-btn">DOI</a>` : ''}
+            <div class="pub-year">${year}<span class="pub-num">[${parsedData.length - index}]</span></div>
+            <div>
+              <div class="pub-title">${title}</div>
+              <div class="pub-authors">${authors}</div>
+              <div class="pub-venue">${journal}</div>
+              <div class="pub-links">
+                ${url ? `<a href="${url}" target="_blank" rel="noopener" class="pub-btn">Paper</a>` : ''}
+                ${pdf ? `<a href="${pdf}" target="_blank" rel="noopener" class="pub-btn">PDF</a>` : ''}
+                ${doi ? `<a href="${doi}" target="_blank" rel="noopener" class="pub-btn">DOI</a>` : ''}
+              </div>
             </div>
           `;
           container.appendChild(card);
         });
       } catch (err) {
-        container.innerHTML = `<p style="color: red;">오류: ${err.message}</p>`;
+        container.innerHTML = `<p style="color: #dc2626;">오류: ${err.message}</p>`;
       }
     }
 
     window.addEventListener('DOMContentLoaded', loadBibTeX);
   </script>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Gwon Ryul Han</span>
+      <span class="footer-links">
+        <a href="mailto:grhankr@gmail.com">Email</a>
+        <a href="https://github.com/gwonryul-han" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/gwon-ryul-han-28658634b/" target="_blank" rel="noopener">LinkedIn</a>
+      </span>
+    </div>
+  </footer>
 </body>
 </html>

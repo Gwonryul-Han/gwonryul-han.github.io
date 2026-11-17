@@ -1,53 +1,88 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact | Gwon Ryul Han</title>
+  <meta name="description" content="Gwon Ryul Han — undergraduate physics researcher at UNIST working on quantum information theory.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="cv.html">CV</a>
-    <a href="publications.html">Publications</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-
-  <h1>Contact</h1>
-  <p>Feel free to reach out via email or leave a message below:</p>
-
-  <p>
-    <strong>Email:</strong> <a href="mailto:grhankr@gmail.com">grhankr@gmail.com</a><br>
-    <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/gwon-ryul-han-28658634b/" target="_blank">Gwon Ryul Han</a><br>
-    <strong>GitHub:</strong> <a href="https://github.com/gwonryul-han" target="_blank">github.com/gwonryul-han</a>
-  </p>
-
-  <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
-
-  <h3>Send a Message</h3>
-  <!-- Formsubmit 서비스 적용 (회원가입 불필요) -->
-  <form action="https://formsubmit.co/grhankr@gmail.com" method="POST">
-    <!-- 스팸 방지 및 제출 후 돌아올 주소 설정 (선택사항) -->
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="https://gwonryul-han.github.io/contact.html">
-
-    <div class="form-group">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required>
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="brand"><span class="brand-mark">GH</span><span class="brand-name">Gwon Ryul Han</span></a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="cv.html">CV</a>
+        <a href="publications.html">Publications</a>
+        <a href="contact.html" aria-current="page">Contact</a>
+      </nav>
     </div>
+  </header>
 
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
+  <main>
+    <div class="container">
+      <div class="page-head">
+        <span class="eyebrow">Get in touch</span>
+        <h1>Contact</h1>
+        <p>Feel free to reach out via email or leave a message below.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-links">
+          <a class="card contact-item" href="mailto:grhankr@gmail.com">
+            <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+            <span><span class="contact-label">Email</span><span class="contact-value">grhankr@gmail.com</span></span>
+          </a>
+          <a class="card contact-item" href="https://www.linkedin.com/in/gwon-ryul-han-28658634b/" target="_blank" rel="noopener">
+            <span class="contact-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9.75h4v11H3v-11zm6.5 0h3.8v1.5h.05c.53-1 1.84-2.05 3.78-2.05 4.04 0 4.79 2.66 4.79 6.13v5.42h-4v-4.8c0-1.15-.02-2.62-1.6-2.62-1.6 0-1.84 1.25-1.84 2.54v4.88h-4v-11z"/></svg></span>
+            <span><span class="contact-label">LinkedIn</span><span class="contact-value">Gwon Ryul Han</span></span>
+          </a>
+          <a class="card contact-item" href="https://github.com/gwonryul-han" target="_blank" rel="noopener">
+            <span class="contact-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.2c0 4.5 2.9 8.3 6.8 9.7.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 2.9.9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.4 9.4 0 015 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10.2 10.2 0 0022 12.2C22 6.6 17.5 2 12 2z"/></svg></span>
+            <span><span class="contact-label">GitHub</span><span class="contact-value">github.com/gwonryul-han</span></span>
+          </a>
+        </div>
+
+        <div class="card form-card">
+          <h2>Send a Message</h2>
+          <!-- Formsubmit 서비스 적용 (회원가입 불필요) -->
+          <form action="https://formsubmit.co/grhankr@gmail.com" method="POST">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://gwonryul-han.github.io/contact.html">
+
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="6" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+      </div>
     </div>
+  </main>
 
-    <div class="form-group">
-      <label for="message">Message:</label>
-      <textarea id="message" name="message" rows="5" required></textarea>
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Gwon Ryul Han</span>
+      <span class="footer-links">
+        <a href="mailto:grhankr@gmail.com">Email</a>
+        <a href="https://github.com/gwonryul-han" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/gwon-ryul-han-28658634b/" target="_blank" rel="noopener">LinkedIn</a>
+      </span>
     </div>
-
-    <button type="submit">Send Message</button>
-  </form>
+  </footer>
 </body>
 </html>
