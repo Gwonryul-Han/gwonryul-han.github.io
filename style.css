@@ -15,9 +15,8 @@
   --accent: #4f46e5;
   --accent-2: #0891b2;
   --accent-soft: rgba(79, 70, 229, 0.08);
-  --grad: linear-gradient(120deg, #4f46e5 0%, #7c3aed 45%, #0891b2 100%);
   --shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px -12px rgba(15, 23, 42, 0.12);
-  --shadow-hover: 0 1px 2px rgba(15, 23, 42, 0.06), 0 18px 40px -16px rgba(79, 70, 229, 0.28);
+  --shadow-hover: 0 1px 2px rgba(15, 23, 42, 0.06), 0 18px 40px -16px rgba(15, 23, 42, 0.22);
   --radius: 16px;
   --radius-sm: 10px;
   --maxw: 960px;
@@ -37,9 +36,8 @@
     --accent: #8b8cff;
     --accent-2: #38bdf8;
     --accent-soft: rgba(139, 140, 255, 0.1);
-    --grad: linear-gradient(120deg, #8b8cff 0%, #c084fc 45%, #38bdf8 100%);
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.5);
-    --shadow-hover: 0 1px 2px rgba(0, 0, 0, 0.3), 0 18px 40px -16px rgba(139, 140, 255, 0.35);
+    --shadow-hover: 0 1px 2px rgba(0, 0, 0, 0.3), 0 18px 40px -16px rgba(0, 0, 0, 0.6);
   }
 }
 
@@ -68,10 +66,7 @@ body::before {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background:
-    radial-gradient(600px 320px at 85% -40px, var(--accent-soft), transparent 70%),
-    radial-gradient(520px 300px at 5% 0px, rgba(8, 145, 178, 0.07), transparent 70%),
-    radial-gradient(circle at 1px 1px, var(--line-strong) 1px, transparent 0) 0 0 / 22px 22px;
+  background: radial-gradient(circle at 1px 1px, var(--line-strong) 1px, transparent 0) 0 0 / 22px 22px;
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 520px);
           mask-image: linear-gradient(to bottom, #000 0%, transparent 520px);
 }
@@ -131,8 +126,8 @@ main { flex: 1; padding: 56px 0 80px; }
   border-radius: 9px;
   display: grid;
   place-items: center;
-  background: var(--grad);
-  color: #fff;
+  background: var(--ink);
+  color: var(--bg);
   font-family: var(--mono);
   font-size: 0.8rem;
   font-weight: 600;
@@ -227,13 +222,6 @@ nav a[aria-current="page"] { color: var(--ink); background: var(--line); }
   margin: 14px 0 14px;
 }
 
-.hero h1 .grad {
-  background: var(--grad);
-  -webkit-background-clip: text;
-          background-clip: text;
-  color: transparent;
-}
-
 .hero .lead {
   font-size: 1.12rem;
   color: var(--ink-2);
@@ -249,8 +237,9 @@ nav a[aria-current="page"] { color: var(--ink); background: var(--line); }
   height: 210px;
   border-radius: 50%;
   padding: 4px;
-  background: var(--grad);
-  box-shadow: var(--shadow-hover);
+  background: var(--bg-elev);
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow);
 }
 .avatar img {
   width: 100%;
@@ -258,7 +247,6 @@ nav a[aria-current="page"] { color: var(--ink); background: var(--line); }
   border-radius: 50%;
   object-fit: cover;
   display: block;
-  border: 4px solid var(--bg);
 }
 
 .about p { font-size: 1.04rem; max-width: 70ch; margin: 0; }
